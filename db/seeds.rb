@@ -12,7 +12,7 @@ movies = [
   "avengers"
 ]
 
-puts "Creating movies..."
+puts "Creating movies..."      
 movies.each do |title|
   omdb_endpoint = "http://www.omdbapi.com/?s=#{title}&apikey=a881ace5"
 
@@ -27,8 +27,26 @@ movies.each do |title|
 
     director_first_name = result["Director"].split.first
     director_last_name = result["Director"].split.last
-    director = Director.where(first_name: director_first_name, last_name: director_last_name).first_or_create!(first_name: director_first_name, last_name: director_last_name)
-    movie = Movie.where(synopsis: result["Plot"]).first_or_create!(title: result["Title"], year: result["Year"].to_i, synopsis: result["Plot"], image_url: result["Poster"], director: director)
+    
+    director = Director.where(
+                          first_name: director_first_name, 
+                          last_name: director_last_name
+                        )
+                        .first_or_create!(
+                          first_name: director_first_name,
+                          last_name: director_last_name
+                        )
+
+    movie = Movie.where(
+                    synopsis: result["Plot"]
+                  )
+                  .first_or_create!(
+                    title: result["Title"], 
+                    year: result["Year"].to_i, 
+                    synopsis: result["Plot"], 
+                    image_url: result["Poster"], 
+                    director: director
+                  )
     # p movie
     # p director
   end
