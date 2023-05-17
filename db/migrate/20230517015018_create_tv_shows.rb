@@ -4,6 +4,7 @@ class CreateTvShows < ActiveRecord::Migration[7.0]
       t.string :title
       t.integer :year
       t.text :synopsis
+      t.string :image_url
 
       t.timestamps
     end
